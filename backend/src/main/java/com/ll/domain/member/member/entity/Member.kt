@@ -1,11 +1,11 @@
 package com.ll.domain.member.member.entity;
 
-import com.ll.global.jpa.entity.BaseTime;
-import com.ll.standard.util.Ut;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.ll.global.jpa.entity.BaseTime
+import com.ll.standard.util.Ut
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 @Entity
 class Member : BaseTime {
@@ -66,4 +66,3 @@ class Member : BaseTime {
     val profileImgUrlOrDefault: String
         get() = if (Ut.str.isBlank(profileImgUrl)) "https://placehold.co/640x640?text=O_O" else profileImgUrl
 }
-

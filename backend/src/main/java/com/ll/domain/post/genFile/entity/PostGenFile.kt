@@ -17,16 +17,16 @@ class PostGenFile : GenFile {
     @Enumerated(EnumType.STRING)
     lateinit var typeCode: TypeCode
 
+    constructor(post: Post, typeCode: TypeCode, fileNo: Int) : super(fileNo) {
+        this.post = post;
+        this.typeCode = typeCode;
+    }
+
     override fun getOwnerModelId(): Long {
         return post.id
     }
 
     override fun getTypeCodeAsStr(): String {
         return typeCode.name
-    }
-
-    constructor(post: Post, typeCode: TypeCode, fileNo: Int) : super(fileNo) {
-        this.post = post
-        this.typeCode = typeCode
     }
 }
