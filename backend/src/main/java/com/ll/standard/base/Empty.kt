@@ -1,4 +1,3 @@
-package com.ll.standard.base
+package com.ll.standard.base;
 
-class Empty {
-}
+class Empty
