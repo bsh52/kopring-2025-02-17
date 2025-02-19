@@ -1,15 +1,24 @@
-package com.ll.domain.post.post.dto
+package com.ll.domain.post.comment.dto
 
-import com.ll.domain.post.post.entity.Post
+import com.ll.domain.post.comment.entity.PostComment
+import java.time.LocalDateTime
 
-class PostWithContentDto(
-    val content: String,
-    var actorCanModify: Boolean? = null,
-    var actorCanDelete: Boolean? = null,
-    private val post: Post
-) : PostDto(post) {
-    constructor(post: Post) : this(
-        content = post.content,
-        post = post
+data class PostCommentDto(
+    val id: Long,
+    val createDate: LocalDateTime,
+    val modifyDate: LocalDateTime,
+    val postId: Long,
+    val authorId: Long,
+    val authorName: String,
+    val content: String
+) {
+    constructor(postComment: PostComment) : this(
+        id = postComment.id!!,
+        createDate = postComment.createDate,
+        modifyDate = postComment.modifyDate,
+        postId = postComment.post.id!!,
+        authorId = postComment.author.id!!,
+        authorName = postComment.author.name,
+        content = postComment.content
     )
 }
