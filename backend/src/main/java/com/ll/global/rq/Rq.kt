@@ -5,6 +5,7 @@ import com.ll.domain.member.member.service.MemberService
 import com.ll.global.security.SecurityUser
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+
 import org.springframework.http.ResponseCookie
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -16,43 +17,43 @@ import org.springframework.web.context.annotation.RequestScope
 @RequestScope
 @Component
 class Rq(
-        private val req: HttpServletRequest,
-        private val resp: HttpServletResponse,
-        private val memberService: MemberService
+    private val req: HttpServletRequest,
+    private val resp: HttpServletResponse,
+    private val memberService: MemberService
 ) {
     fun setLogin(member: Member) {
         val user: UserDetails = SecurityUser(
-                member.id!!,
-                member.username,
-                "",
-                member.nickname,
-                member.authorities
+            member.id,
+            member.username,
+            "",
+            member.nickname,
+            member.authorities
         )
 
         val authentication: Authentication = UsernamePasswordAuthenticationToken(
-                user,
-                user.password,
-                user.authorities
+            user,
+            user.password,
+            user.authorities
         )
 
         SecurityContextHolder.getContext().authentication = authentication
     }
 
     val actor: Member?
-    get() {
-        return (SecurityContextHolder.getContext().authentication?.principal as? SecurityUser)?.let {
-            Member(it.id, it.username, it.nickname)
+        get() {
+            return (SecurityContextHolder.getContext().authentication?.principal as? SecurityUser)?.let {
+                Member(it.id, it.username, it.nickname)
+            }
         }
-    }
 
     fun setCookie(name: String, value: String) {
         val cookie = ResponseCookie.from(name, value)
-                .path("/")
-                .domain("localhost")
-                .sameSite("Strict")
-                .secure(true)
-                .httpOnly(true)
-                .build()
+            .path("/")
+            .domain("localhost")
+            .sameSite("Strict")
+            .secure(true)
+            .httpOnly(true)
+            .build()
         resp.addHeader("Set-Cookie", cookie.toString())
     }
 
@@ -62,13 +63,13 @@ class Rq(
 
     fun deleteCookie(name: String) {
         val cookie = ResponseCookie.from(name, "")
-                .path("/")
-                .domain("localhost")
-                .sameSite("Strict")
-                .secure(true)
-                .httpOnly(true)
-                .maxAge(0)
-                .build()
+            .path("/")
+            .domain("localhost")
+            .sameSite("Strict")
+            .secure(true)
+            .httpOnly(true)
+            .maxAge(0)
+            .build()
         resp.addHeader("Set-Cookie", cookie.toString())
     }
 
